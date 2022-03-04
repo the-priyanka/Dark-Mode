@@ -2,8 +2,16 @@ import { useEffect, useState } from "react";
 import Article from "./components/Article";
 import data from "./components/Data";
 
+const getLocalStorage = () => {
+  let theme = "light-theme";
+  if (localStorage.getItem("theme")) {
+    theme = localStorage.getItem("theme");
+  }
+  return theme;
+};
+
 function App() {
-  const [theme, setTheme] = useState("light-theme");
+  const [theme, setTheme] = useState(getLocalStorage());
 
   const toggleTheme = () => {
     if (theme === "light-theme") {
@@ -15,6 +23,7 @@ function App() {
 
   useEffect(() => {
     document.documentElement.className = theme;
+    localStorage.setItem("theme", theme);
   }, [theme]);
   return (
     <main>
